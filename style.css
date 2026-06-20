@@ -1,0 +1,633 @@
+/* =====================================================================
+   PORTFÓLIO PESSOAL - CURRÍCULO ONLINE
+   Material didático para alunos do 1º semestre de
+   Desenvolvimento de Sistemas.
+
+   Este arquivo está organizado em BLOCOS NUMERADOS para facilitar
+   o estudo. Use Ctrl+F e procure pelos números (ex: "2. VARIÁVEIS")
+   para encontrar rapidamente a parte que deseja entender ou editar.
+
+   ÍNDICE DESTE ARQUIVO:
+   1. RESET
+   2. VARIÁVEIS
+   3. LAYOUT GERAL
+   4. HERO
+   5. SOBRE
+   6. TECNOLOGIAS
+   7. PROJETOS
+   8. FORMAÇÃO
+   9. CONTATO
+   10. RESPONSIVIDADE
+===================================================================== */
+
+
+/* =====================================================================
+   1. RESET
+   =====================================================================
+   O "reset" serve para remover estilos padrão que os navegadores
+   aplicam automaticamente (margens, paddings, etc.), garantindo que
+   o nosso site tenha a mesma aparência em qualquer navegador.
+===================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* faz com que padding/border não aumentem o tamanho final do elemento */
+}
+
+body {
+    /* font-family com "fallback": se a primeira fonte não existir
+       no computador do usuário, o navegador usa a próxima da lista */
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+    color: var(--cor-texto);
+    background-color: var(--cor-fundo);
+}
+
+img {
+    max-width: 100%; /* impede que imagens "estourem" o layout em telas pequenas */
+    display: block;
+}
+
+a {
+    text-decoration: none; /* remove o sublinhado padrão dos links */
+}
+
+
+/* =====================================================================
+   2. VARIÁVEIS
+   =====================================================================
+   Variáveis CSS (também chamadas de "custom properties") guardam
+   valores que se repetem no site, como cores e espaçamentos.
+
+   VANTAGEM: se você quiser trocar a cor principal do site, basta
+   alterar o valor AQUI, uma única vez, em vez de procurar e trocar
+   em cada seção separadamente.
+
+   Paleta escolhida: PRETO + DOURADO
+   Transmite elegância, seriedade e profissionalismo.
+===================================================================== */
+
+:root {
+    /* Cores principais */
+    --cor-fundo: #0d0d0d;          /* preto principal, usado no fundo do site */
+    --cor-fundo-secundaria: #161616; /* preto levemente mais claro, usado em seções alternadas */
+    --cor-card: #1c1c1c;           /* cor de fundo dos cards (projetos, tecnologias) */
+
+    --cor-dourado: #d4af37;        /* dourado principal, usado em títulos e destaques */
+    --cor-dourado-claro: #e9d18b;  /* dourado mais claro, usado em hover (passar o mouse) */
+
+    --cor-texto: #f2f2f2;          /* cor padrão do texto (quase branco) */
+    --cor-texto-suave: #b8b8b8;    /* cinza claro, usado em textos secundários */
+
+    --cor-borda: #2c2c2c;          /* cor sutil usada em bordas e divisores */
+
+    /* Espaçamentos padrão usados em várias seções */
+    --espaco-secao: 80px;
+    --raio-borda: 12px; /* deixa cantos arredondados e suaves nos cards e botões */
+}
+
+
+/* =====================================================================
+   3. LAYOUT GERAL
+   =====================================================================
+   Estilos que se aplicam ao site como um todo: títulos de seção,
+   espaçamentos padrão e a "linha dourada" usada como divisor.
+===================================================================== */
+
+.secao {
+    padding-top: var(--espaco-secao);
+    padding-bottom: var(--espaco-secao);
+}
+
+/* Seções "pares" recebem um fundo levemente diferente,
+   criando contraste suave entre uma seção e outra */
+.tecnologias,
+.formacao {
+    background-color: var(--cor-fundo-secundaria);
+}
+
+.titulo-secao {
+    text-align: center;
+    color: var(--cor-dourado);
+    font-weight: 700;
+    letter-spacing: 1px; /* aumenta um pouco o espaço entre as letras, dando elegância */
+    margin-bottom: 16px;
+}
+
+/* Pequena linha dourada usada como divisor visual abaixo dos títulos */
+.linha-dourada {
+    width: 60px;
+    height: 3px;
+    background-color: var(--cor-dourado);
+    border: none;
+    border-radius: 2px;
+    margin: 0 auto 40px auto; /* "0 auto" centraliza a linha horizontalmente */
+}
+
+/* Botões personalizados usados em vários pontos do site
+   (Hero, Projetos). Reutilizar a mesma classe evita repetir
+   código e mantém o visual consistente. */
+.btn-personalizado {
+    display: inline-block;
+    padding: 10px 28px;
+    border-radius: var(--raio-borda);
+    font-weight: 600;
+    margin: 6px;
+    transition: all 0.3s ease; /* cria uma transição suave ao passar o mouse */
+}
+
+.btn-pequeno {
+    padding: 8px 18px;
+    font-size: 0.9rem;
+}
+
+/* Botão preenchido com dourado, usado para a ação principal */
+.btn-dourado {
+    background-color: var(--cor-dourado);
+    color: #0d0d0d;
+}
+
+.btn-dourado:hover {
+    background-color: var(--cor-dourado-claro);
+}
+
+/* Botão "contorno": apenas a borda é dourada, o fundo é transparente */
+.btn-contorno {
+    background-color: transparent;
+    color: var(--cor-dourado);
+    border: 2px solid var(--cor-dourado);
+}
+
+/* -----------------------------------------------------------
+   PAINEL COM BORDA (usado em Sobre, Formação e Contato)
+   -----------------------------------------------------------
+   Esta é a "caixa" com borda que envolve o conteúdo de algumas
+   seções, dando uma aparência mais estruturada e profissional,
+   parecida com painéis usados em currículos e dashboards.
+
+   Você pode usar essa MESMA classe em qualquer outra seção
+   nova que você criar, sempre que quiser um efeito de "caixa".
+----------------------------------------------------------- */
+.painel-secao {
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    padding: 32px 28px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+/* Variação usada na seção de Contato: borda dourada mais visível,
+   para chamar atenção do recrutador para esta área */
+.painel-destaque {
+    border: 1px solid var(--cor-dourado);
+    box-shadow: 0 0 0 1px rgba(212, 175, 55, 0.15), 0 4px 18px rgba(0, 0, 0, 0.4);
+}
+
+/* Variação usada na seção de Formação: um pouco mais larga e
+   com espaçamento extra entre os itens internos */
+.painel-formacao {
+    max-width: 760px;
+}
+
+.painel-formacao .item-formacao:last-child {
+    margin-bottom: 0; /* remove a margem extra do último item dentro do painel */
+}
+
+.btn-contorno:hover {
+    background-color: var(--cor-dourado);
+    color: #0d0d0d;
+}
+
+
+/* -----------------------------------------------------------
+   BARRA DE NAVEGAÇÃO SUPERIOR (MENU FIXO)
+   -----------------------------------------------------------
+   Esta é a barra com borda inferior que fica no topo do site,
+   contendo o "logo" (nome em texto) à esquerda e os botões de
+   navegação à direita.
+
+   position: sticky -> faz a barra "colar" no topo da tela e
+   continuar visível mesmo quando o usuário rola a página.
+   Se quiser que ela role normalmente junto com o conteúdo,
+   basta trocar "sticky" por "static".
+----------------------------------------------------------- */
+
+.navbar-superior {
+    position: sticky;
+    top: 0;
+    z-index: 100; /* garante que a barra fique por cima dos outros elementos */
+    background-color: var(--cor-fundo);
+    border: 1px solid var(--cor-borda);
+    border-top: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4); /* sombra sutil para destacar a barra */
+}
+
+.navbar-conteudo {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.navbar-logo {
+    color: var(--cor-dourado);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.navbar-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+/* Cada link do menu é estilizado como um pequeno botão com borda,
+   parecido com o "btn-contorno", mas um pouco mais discreto */
+.navbar-botao {
+    color: var(--cor-texto-suave);
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navbar-botao:hover {
+    color: var(--cor-dourado);
+    border-color: var(--cor-dourado);
+}
+
+/* O botão de "Contato" recebe um destaque extra, pois é a
+   ação mais importante para um recrutador clicar */
+.navbar-botao-destaque {
+    background-color: var(--cor-dourado);
+    color: #0d0d0d;
+    border-color: var(--cor-dourado);
+}
+
+.navbar-botao-destaque:hover {
+    background-color: var(--cor-dourado-claro);
+    border-color: var(--cor-dourado-claro);
+    color: #0d0d0d;
+}
+
+
+/* =====================================================================
+   4. HERO
+   =====================================================================
+   Estilização da seção de apresentação (cabeçalho).
+   Aqui controlamos o tamanho da foto, o nome e o cargo desejado.
+===================================================================== */
+
+.hero {
+    padding: 100px 0;
+    background-color: var(--cor-fundo);
+    border-bottom: 1px solid var(--cor-borda); /* linha sutil separando o hero do restante do site */
+}
+
+.hero-foto {
+    width: 200px;
+    height: 200px;
+    object-fit: cover; /* garante que a foto preencha o círculo sem distorcer */
+    border-radius: 50%; /* transforma a imagem em um círculo perfeito */
+    border: 3px solid var(--cor-dourado);
+    margin: 0 auto 20px auto;
+}
+
+.hero-nome {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--cor-texto);
+}
+
+.hero-cargo {
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--cor-dourado);
+    margin-bottom: 18px;
+}
+
+.hero-descricao {
+    color: var(--cor-texto-suave);
+    max-width: 600px;
+    margin-bottom: 24px;
+}
+
+.hero-botoes {
+    margin-top: 10px;
+}
+
+
+/* =====================================================================
+   5. SOBRE
+   =====================================================================
+   Estilização da seção "Sobre Mim".
+   Texto centralizado e com largura limitada, para facilitar a leitura.
+===================================================================== */
+
+.sobre-mim .texto-sobre {
+    max-width: 750px;
+    margin: 0 auto; /* centraliza o bloco de texto horizontalmente */
+    text-align: center;
+    color: var(--cor-texto-suave);
+    font-size: 1.05rem;
+}
+
+
+/* =====================================================================
+   6. TECNOLOGIAS
+   =====================================================================
+   Estilização dos pequenos cards usados para listar tecnologias.
+===================================================================== */
+
+.card-tecnologia {
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    padding: 18px 10px;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    /*
+        Layout em coluna (flex) para que o nome da habilidade
+        fique em cima e o "botão de status" (Plena / Em
+        Desenvolvimento) fique sempre alinhado na parte de
+        baixo do card, mesmo quando os nomes têm tamanhos
+        diferentes (ex: "Git & Github" x "TI | Infrastructure").
+    */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.card-tecnologia:hover {
+    transform: translateY(-4px); /* efeito sutil de "subir" ao passar o mouse */
+    border-color: var(--cor-dourado);
+}
+
+.card-tecnologia p {
+    margin: 0;
+    font-weight: 600;
+    color: var(--cor-texto);
+}
+
+/* -----------------------------------------------------------
+   BOTÃO DE STATUS (Plena / Em Desenvolvimento)
+   -----------------------------------------------------------
+   Reaproveita as classes .btn-personalizado, .btn-dourado e
+   .btn-contorno (as mesmas usadas no botão "Ver Projeto").
+   A classe abaixo só ajusta detalhes para esse contexto
+   específico: remove a margem padrão do botão (já cuidamos
+   do espaçamento com "gap" no .card-tecnologia) e troca o
+   cursor para "default", já que aqui é apenas um indicador
+   visual, não um link clicável.
+----------------------------------------------------------- */
+.status-skill {
+    margin: 0;
+    cursor: default;
+    font-size: 0.78rem;
+}
+
+/* -----------------------------------------------------------
+   PAINEL DE SKILLS (Hard & Soft Skills no mesmo painel)
+   -----------------------------------------------------------
+   Subtítulo interno usado para separar visualmente o grupo
+   de "Hard Skills" do grupo de "Soft Skills" dentro do mesmo
+   painel com borda.
+----------------------------------------------------------- */
+.subtitulo-skills {
+    text-align: center;
+    color: var(--cor-dourado);
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: 0.5px;
+}
+
+/* Espaço extra acima do segundo subtítulo (Soft Skills),
+   para não ficar colado no grupo de cards anterior */
+.subtitulo-skills-espacado {
+    margin-top: 36px;
+}
+
+/* Versão menor da linha dourada, usada como divisor dentro
+   de um mesmo painel (mais discreta que a linha principal) */
+.linha-dourada-pequena {
+    width: 40px;
+    height: 2px;
+    margin: 0 auto 28px auto;
+}
+
+/* O painel de skills pode ser um pouco mais largo que o
+   padrão (800px), pois contém duas linhas de cards */
+.painel-skills {
+    max-width: 1000px;
+}
+
+
+
+
+/* =====================================================================
+   7. PROJETOS
+   =====================================================================
+   Estilização dos cards de projetos, incluindo a listagem de
+   tecnologias usadas dentro de cada card.
+===================================================================== */
+
+.card-projeto {
+    background-color: var(--cor-card);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--raio-borda);
+    padding: 28px 22px;
+    height: 100%;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35); /* sombra discreta para dar profundidade */
+    transition: transform 0.3s ease;
+}
+
+.card-projeto:hover {
+    transform: translateY(-4px);
+}
+
+.card-projeto h3 {
+    color: var(--cor-dourado);
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.card-projeto p {
+    color: var(--cor-texto-suave);
+    font-size: 0.95rem;
+    margin-bottom: 16px;
+}
+
+/* Cada tecnologia usada no projeto aparece como uma pequena "etiqueta" */
+.tecnologias-usadas {
+    margin-bottom: 18px;
+}
+
+.tecnologias-usadas span {
+    display: inline-block;
+    background-color: var(--cor-fundo-secundaria);
+    color: var(--cor-dourado);
+    border: 1px solid var(--cor-borda);
+    border-radius: 20px;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    margin: 2px;
+}
+
+
+/* =====================================================================
+   8. FORMAÇÃO
+   =====================================================================
+   Estilização da lista de formação acadêmica.
+   Cada item recebe uma pequena borda lateral dourada, lembrando
+   uma "linha do tempo" simplificada.
+===================================================================== */
+
+.item-formacao {
+    max-width: 700px;
+    margin: 0 auto 28px auto;
+    padding: 18px 22px;
+    background-color: var(--cor-fundo-secundaria);
+    border: 1px solid var(--cor-borda);
+    border-left: 4px solid var(--cor-dourado);
+    border-radius: 8px;
+}
+
+.item-formacao h3 {
+    color: var(--cor-texto);
+    font-size: 1.1rem;
+    margin-bottom: 4px;
+}
+
+.item-formacao .instituicao {
+    color: var(--cor-dourado);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.item-formacao .periodo {
+    color: var(--cor-texto-suave);
+    font-size: 0.85rem;
+}
+
+
+/* =====================================================================
+   9. CONTATO
+   =====================================================================
+   Estilização da seção final de contato.
+===================================================================== */
+
+.texto-contato {
+    color: var(--cor-texto-suave);
+    max-width: 500px;
+    margin: 0 auto 24px auto;
+}
+
+.links-contato {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px; /* espaço entre cada link de contato */
+}
+
+.link-contato {
+    color: var(--cor-dourado);
+    font-weight: 600;
+    border-bottom: 1px solid transparent; /* prepara o espaço para o sublinhado do hover */
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.link-contato:hover {
+    color: var(--cor-dourado-claro);
+    border-color: var(--cor-dourado-claro);
+}
+
+/* Rodapé simples, com texto pequeno e discreto */
+.rodape {
+    background-color: var(--cor-fundo-secundaria);
+    border-top: 1px solid var(--cor-borda);
+    padding: 24px 0;
+    text-align: center;
+}
+
+.rodape p {
+    color: var(--cor-texto-suave);
+    font-size: 0.85rem;
+}
+
+
+/* =====================================================================
+   10. RESPONSIVIDADE
+   =====================================================================
+   Aqui ajustamos o site para telas menores, como celulares e tablets.
+
+   O Bootstrap já cuida de boa parte da responsividade através das
+   classes "col-12 col-md-4" usadas no HTML (isso faz as colunas
+   ficarem uma embaixo da outra em telas pequenas automaticamente).
+
+   Aqui ajustamos apenas detalhes finos que o Bootstrap não controla,
+   como tamanhos de fonte e espaçamentos da nossa estilização própria.
+===================================================================== */
+
+/* Telas com largura até 768px (tablets e celulares) */
+@media (max-width: 768px) {
+
+    .navbar-conteudo {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-links {
+        justify-content: center;
+    }
+
+    .hero {
+        padding: 60px 0;
+        text-align: center;
+    }
+
+    .hero-nome {
+        font-size: 1.9rem;
+    }
+
+    .hero-cargo {
+        font-size: 1.1rem;
+    }
+
+    .secao {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .titulo-secao {
+        font-size: 1.6rem;
+    }
+}
+
+/* Telas bem pequenas, como celulares antigos (até 480px) */
+@media (max-width: 480px) {
+
+    .navbar-botao {
+        padding: 5px 10px;
+        font-size: 0.78rem;
+    }
+
+    .hero-foto {
+        width: 150px;
+        height: 150px;
+    }
+
+    .btn-personalizado {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
